@@ -1,0 +1,1 @@
+This is a test with no flame, but a 10uA calibration device instead.  There is a circuit connected between the torch and the workpiece that, when powered, permits only +10uA of current to flow when the bias voltage is positive.  When the bias voltage is negative, current leaks backwards through the regulating mosfet and a 125kOhm resistance.
