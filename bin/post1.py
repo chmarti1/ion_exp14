@@ -178,5 +178,8 @@ for index, arg in enumerate(argv):
             sourcedir = os.path.join(datadir,this)
     worker_args.append((sourcedir, force, quiet))
 
-with Pool(8) as pool:
-    pool.map(worker, worker_args)
+#with Pool(8) as pool:
+#    pool.map(worker, worker_args)
+
+for args in worker_args:
+    worker(args)
