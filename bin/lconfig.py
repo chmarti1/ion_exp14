@@ -816,21 +816,21 @@ whichever is configured last will be returned.
         if target is None:
             # The input must have been through ainum.
             if ainum is None:
-                raise Exception('GET_AIINDEX: Missing mandatory argument.')
+                raise Exception('GET_INDEX: Missing mandatory argument.')
             ai = self._byainum.get(ainum)
             if ai is None:
-                raise Exception('GET_AIINDEX: Analog input number %d not found.'%ainum)
+                raise Exception('GET_INDEX: Analog input number %d not found.'%ainum)
         # If the target was specified
         else:
             # Make sure both weren't specified
             if ainum is not None:
-                raise Exception('GET_AIINDEX: Accepts only one argument.')
+                raise Exception('GET_INDEX: Accepts only one argument.')
             # If the channel is specified by label
             if isinstance(target, str):
                 ai = self._bylabel.get(target)
                 # If the channel was not found
                 if ai is None:
-                    raise Exception('GET_AIINDEX: Label not recognized: ' + target)
+                    raise Exception('GET_INDEX: Label not recognized: ' + target)
             # If the channel is specified by index
             elif isinstance(target, int):
                 # Handle integer wrapping
@@ -838,10 +838,10 @@ whichever is configured last will be returned.
                 if target < 0:
                     ai += nch
                 if ai < 0 or ai >= nch:
-                    raise Exception('GET_AIINDEX: Index, %d, is out of range with %d channels.'%(target, nch)) 
+                    raise Exception('GET_INDEX: Index, %d, is out of range with %d channels.'%(target, nch)) 
         
         if ai is None:
-            raise Exception('GET_CHANNEL: Unhandled exception!')
+            raise Exception('GET_INDEX: Unhandled exception!')
             
         return ai
 
@@ -861,7 +861,7 @@ See the get_index() for a detailed description of the arguments
 See the class documentation for other operations that can be performed
 with the item retrieval [] notation.
 """
-        return self.data[:,self.get_aiindex(target=target, ainum=ainum)]
+        return self.data[:,self.get_index(target=target, ainum=ainum)]
             
     
     def get_config(self, target=None, ainum=None):
@@ -876,11 +876,11 @@ Returns the analog input configuration instance for the input channel
 See the get_index() for a detailed description of the arguments
 """
         ai = self.get_index(target=target,ainum=ainum)
-        if ai==len(self.aich):
+        if ai==len(self.config.aich):
             raise Exception('GET_CONFIG: The DISTREAM configuration is not supported by get_config()')
-        return self.aich[ai]
+        return self.config.aich[ai]
     
-            
+    
     def time(self):
         """time()       Return a 1D time array
         
@@ -1170,7 +1170,7 @@ the level is interpreted in appropriate units, e.g. V / (sec ** diff)
         # Transpose to a boolean array
         y = (y > level)
         
-        indices = self.edge_filter(y, debounce=debounce, edge=edge, count=count)
+        indices = self.event_filter(y, debounce=debounce, edge=edge, count=count)
         
         # Adjust the indices for the offsets created by downselection
         # and differentiation
