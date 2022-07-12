@@ -1,4 +1,4 @@
-#Ion Experiment 14
+# Ion Experiment 14
 
 In these tests, a 1/2in steel plate was heated while monitoring the current-voltage characteristic.  Tests were run in three configurations: (1) with preheat only, (2) in preheat with 0.1s bursts of 45psig cutting oxygen, and (3) in preheat with 0.1s bursts of 45psig cutting oxygen while applying a constant voltage.
 
