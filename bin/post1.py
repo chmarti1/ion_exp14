@@ -13,7 +13,7 @@ def worker(args):
     if not quiet:
         print('Working on :' + sourcedir)
         
-    vtest = 2.0
+    vtest = 8.0
     itest = 25.0
     
     # Check for prior post1 results
